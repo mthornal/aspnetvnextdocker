@@ -6,7 +6,7 @@ dependencies:
     override:
         - docker info
         - docker build -t mthornal/aspnetvnextdocker
-		
+
 deployment:
     hub:
         branch: master
