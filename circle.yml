@@ -3,8 +3,9 @@ machine:
         - docker
 
 dependencies:
-    pre:
-        - sudo service docker stop; sudo curl -L -o /usr/bin/docker 'http://s3-external-1.amazonaws.com/circle-downloads/docker-1.6.0-circleci'; sudo chmod 0755 /usr/bin/docker; sudo service docker start; true
+    # https://forums.docker.com/t/fata-0001-error-status-400-trying-to-push-repository-username-reponame-mycustomtag-access-denied-is-a-private-image/1354/13
+    # pre:
+    #    - sudo service docker stop; sudo curl -L -o /usr/bin/docker 'http://s3-external-1.amazonaws.com/circle-downloads/docker-1.6.0-circleci'; sudo chmod 0755 /usr/bin/docker; sudo service docker start; true
     override:
         - docker info
         - docker build -t mthornal/aspnetvnextdocker .
@@ -13,5 +14,6 @@ deployment:
     hub:
         branch: master
         commands:
-            - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-            - docker push mthornal/aspnetvnextdocker
+            - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS tutum.co
+            - docker tag mthornal/aspnetvnextdocker tutum.co/mthornal/aspnetvnextdocker
+            - docker push tutum.co/mthornal/aspnetvnextdocker
