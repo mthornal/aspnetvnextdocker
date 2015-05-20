@@ -1,6 +1,6 @@
 FROM microsoft/aspnet
 
-COPY . /app
+ADD . /app/
 WORKDIR /app
 RUN ["dnu", "restore"]
 
